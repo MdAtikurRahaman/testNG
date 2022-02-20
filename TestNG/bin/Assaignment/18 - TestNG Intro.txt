@@ -1,0 +1,267 @@
+INSTALLING PLUGIN & ADDING LIBRARY:
+
+A. Installation process only needs to be done ONCE for every device with Eclipse:
+	1. In Eclipse, click "Help" Menu
+	2. Open "Eclipse Marketplace"
+	3. Search 'TestNG' under "Search" Tab
+	4. Find "TestNG for Eclipse"
+	5. Click "Install" Button - Note: If TestNG is already installed, "Install" Button will say "Installed"
+	6. Follow and complete installation process, making sure to agree to Terms & Conditions
+	7. Restart Eclipse
+
+B. Once TestNG is installed, the TestNG Library can be added to a project (Note - Must be repeated for EVERY project utilizing TestNG):
+	1. Right click on current Project
+	2. Select Build Path
+	3. Click "Configure Build Path"
+	4. Click Libraries Tab
+	5. Click Classpath
+	6. Click "Add Library" button on the right
+	7. Click "Next" and then "Finish"
+	8. Click "Apply and Close"
+
+--------------------------------------------------------------------------------------------------------------
+
+RUNNING CLASSES USING TestNG:
+
+* TestNG allows us to run multiple tests at once, instead of individually (one by one)
+
+A. In order for us to do so in Eclipse, we need to fulfill certain conditions that will allow classes to be compatible with TestNG:
+	1. TestNG Library must be added to current project (following steps in above section)
+	2. (Test) Classes will not contain a main method
+	3. Every test will be written inside of a user-defined method
+	4. Every Test Method must have "@Test" Annotation written above the Method Definition
+		- "@Test" Annotation will require an import (import org.testng.annotations.Test;), which must be done for EVERY test
+		- If Build Path is not configured, "@Test" Annotation will prompt user to add TestNG Library; can be done through either method
+		- Method Name MUST be written in Camel Casing (first letter = lower case); if not, it will be considered a Constructor and will not be added to XML File
+
+B. Once conditions are met, the project can be converted to a TestNG Project:
+	1. Right click on current Project
+	2. Click "TestNG"
+	3. Click "Covert to TestNG"
+	4. Click "Finish"
+
+* This will create an XML File containing all classes that contain Test Methods
+* All classes containing Test Methods (with "@Test" Annotation) can now run using TestNG
+
+C. To run all classes containing Test Methods using TestNG:
+	1. Right click on current Project
+	2. Click "Run As"
+	3. Click "TestNG Test"
+
+--------------------------------------------------------------------------------------------------------------
+
+XML FILES & PRIORITY:
+
+* A group of tests or classes containing Test Methods that will run simultaneously (together) are known as a "Suite" in TestNG
+
+* For every Suite, TestNG creates an XML File, which is a configuration file that organizes all of the Test Methods
+	- This File is usually saved as testng.xml
+
+* An XML File will contain 2 tabs
+	- The "Design" Tab displays the hierarchy of a suite's components as collapsible/expandable icons
+	- The "Source" Tab displays a suite's source code, written in a similar syntax to that of HTML
+
+* Inside the "Source" Tab, we can rearrange/reorder the Tests that it contains by placing them above/below each other
+	- The tests in the "Source" Tab will execute according to the waterfall method
+
+* Another way to change the order in which tests will execute is by giving them a priority
+	- Next to the "@Test" Annotation of a given Test Method, we write "(priority = #)"
+		+ Example: @Test(priority = 1)
+	- To give a test priority over another test, we replace "#" sign with a smaller number
+	- TestNG will run tests with a lower priority number before tests with a higher priority number
+		+ By default, if a priority number is not specified for a test, these tests have a priority of zero (priority = 0)
+		+ As a results, tests without specified priority numbers will run first
+
+--------------------------------------------------------------------------------------------------------------
+
+TestNG ANNOTATIONS:
+
+* A Method that will perform a test will have the "@Test" Annotation above the Method Definition
+
+* A Method that will provide test data will have the "@DataProvider" Annotation above the Method Definition
+
+* TestNG functions according to the following hierarchy:
+	- Suite > Test > Group > Class > Method
+	- In other words, "Suites contain Tests, Tests contain Groups, Groups contain Classes, Classes contain Methods"
+	- TestNG will open and run a test according to this hierarchy
+
+* TestNG has a list of annotations to execute a method before/after any of the hierarchy components:
+	- @BeforeSuite	= Very first tag that will execute
+	- @BeforeTest	= Before any test tag will execute
+	- @BeforeGroups	= Before any group tag will execute
+	- @BeforeClass	= Before any class file will execute
+	- @BeforeMethod	= Before any test method tag will execute
+	- @AfterMethod	= After any test method tag will execute
+	- @AfterClass	= After any class file will execute
+	- @AfterGroups	= After any group tag will execute
+	- @AfterTest	= After any test tag will execute
+	- @AfterSuite	= Very last tag that will execute
+		> These annotations will be written above of the Method Definition of the desired Method
+
+--------------------------------------------------------------------------------------------------------------
+
+ASSERT METHODS:
+
+* Several Assert Methods can be utilized with TestNG that will cause a test to either pass or fail
+
+A. Assert.assertEquals(String actual, String expected) = Tests if two Strings are equal; if not, then an AssertionError will be thrown
+	- Note: Will test Data Types other than Strings as well
+
+B. Assert.assertEquals(String actual, String expected, String message) = Tests if two Strings are equal; if not, then the given message is displayed
+	- Note: Will test Data Types other than Strings as well
+
+C. Assert.assertTrue(condition) = Tests if a condition is true; if not, then an AssertionError will be thrown
+
+D. Assert.assertTrue(condition, String message) = Tests if a condition is true; if not, then the given message is displayed
+
+E. Assert.assertNotEquals(String actual, String expected) = Tests if two Strings are not equal; if not, then an AssertionError will be thrown
+	- Note: Will test Data Types other than Strings as well
+
+F. Assert.assertNotEquals(String actual, String expected, String message) = Tests if two Strings are not equal; if not, then the given message is displayed
+	- Note: Will test Data Types other than Strings as well
+
+G. Assert.assertFalse(condition) = Tests if a condition is false; if not, then an AssertionError will be thrown
+
+H. Assert.assertFalse(condition, String message) = Tests if a condition is false; if not, then the given message is displayed
+
+* The two methods that are primarily used are Assert.assertEquals() and Assert.assertTrue()
+* There are a number of other Assert Methods as well, which can be found by typing in "Assert." and scrolling through the list of methods
+
+--------------------------------------------------------------------------------------------------------------
+
+TestNG EXAMPLE:
+
+A. Base Class:-
+
+	package projC18_WithTestNG;
+	
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.chrome.ChromeDriver;
+	import org.testng.annotations.AfterClass;
+	import org.testng.annotations.AfterMethod;
+	import org.testng.annotations.AfterSuite;
+	import org.testng.annotations.AfterTest;
+	import org.testng.annotations.BeforeClass;
+	import org.testng.annotations.BeforeMethod;
+	import org.testng.annotations.BeforeSuite;
+	import org.testng.annotations.BeforeTest;
+	
+	public class BaseForTestNG {
+	
+		public static WebDriver site;
+		
+		@BeforeSuite
+		public void setup() {
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\Shadman\\Desktop\\MicroTech\\Java\\drivers\\chromedriver.exe");
+			site = new ChromeDriver();
+			System.out.println("Before Suite");
+		}
+		
+		@BeforeTest
+		public void beforeTest() {
+			System.out.println("Before Test");
+		}
+		
+		@BeforeClass
+		public void beforeClass() {
+			System.out.println("Before Class");
+		}
+		
+		@BeforeMethod
+		public void beforeMethod() {
+			System.out.println("Before Method");
+		}
+		
+		@AfterMethod
+		public void afterMethod() {
+			System.out.println("After Method");
+		}
+		
+		@AfterClass
+		public void afterClass() {
+			System.out.println("After Class");
+		}
+		
+		@AfterTest
+		public void afterTest() {
+			System.out.println("After Test");
+		}
+		
+		@AfterSuite
+		public void close() {
+			site.close();
+			System.out.println("After Suite");
+		}
+		
+	} // Class End
+
+---
+
+B. Test Class 1:-
+
+	package projC18_WithTestNG;
+	
+	import org.openqa.selenium.By;
+	import org.testng.Assert;
+	import org.testng.annotations.Test;
+	
+	public class CLAccFinanceTestNG extends BaseForTestNG {
+	
+		@Test(priority = 2)
+		public void testCLGarden() {
+			System.out.println("1 - Garden Test");
+			site.get("http://craigslist.org");
+			site.findElement(By.xpath("//a[@href='/d/farm-garden/search/gra']/span[text()='farm+garden']")).click();
+			String result = site.findElement(By.linkText("farm & garden")).getText();	
+			Assert.assertEquals(result, "farm & garden");
+		}
+	
+		@Test(priority = 3)
+		public void testCLAccAndFinanace() {
+			System.out.println("2 - Acc Finance Test");
+			site.get("http://craigslist.org");
+			site.findElement(By.xpath("//span[text()='accounting+finance']")).click();
+			String result = site.findElement(By.linkText("accounting/finance")).getText();
+			Assert.assertEquals(result, "accounting/finance");
+			// Assert.assertTrue(result == "accounting/finance");
+		}
+	
+	} // Class End
+
+---
+
+C. Test Class 2:-
+
+	package projC18_WithTestNG;
+	
+	import org.openqa.selenium.By;
+	import org.testng.Assert;
+	import org.testng.annotations.Test;
+	
+	public class CLAptHousingTestNG extends BaseForTestNG {
+		
+		@Test(priority = 1)
+		public void testCLAptAndHousing() {
+			System.out.println("3 - Apt & Housing Test");
+			site.get("http://craigslist.org");
+			site.findElement(By.xpath("//span[text()='apts / housing']")).click();
+			String result = site.findElement(By.linkText("apartments / housing for rent")).getText();
+			Assert.assertEquals(result, "apartments / housing for rent");
+		}
+	
+	} // Class End
+
+---
+
+D. XML File:-
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+	<suite name="Suite">
+	  <test thread-count="5" name="Test">
+	    <classes>
+	        <class name="projC18_WithTestNG.CLAptHousingTestNG"/>
+	    	<class name="projC18_WithTestNG.CLAccFinanceTestNG" />
+	    </classes>
+	  </test> <!-- Test -->
+	</suite> <!-- Suite -->

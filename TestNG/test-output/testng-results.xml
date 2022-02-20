@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2021-12-01T11:55:21 CST" name="Default suite" finished-at="2021-12-01T11:55:27 CST" duration-ms="6249">
+    <groups>
+    </groups>
+    <test started-at="2021-12-01T11:55:21 CST" name="Default test" finished-at="2021-12-01T11:55:27 CST" duration-ms="6249">
+      <class name="Amazon.Amazon_Verify_Max_Box_Test">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Amazon.Amazon_Verify_Max_Box_Test@1ba9117e]" started-at="2021-12-01T11:55:19 CST" name="setup" finished-at="2021-12-01T11:55:21 CST" duration-ms="1644" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="my_before_class_Method()[pri:0, instance:Amazon.Amazon_Verify_Max_Box_Test@1ba9117e]" started-at="2021-12-01T11:55:21 CST" name="my_before_class_Method" finished-at="2021-12-01T11:55:21 CST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- my_before_class_Method -->
+        <test-method is-config="true" signature="beforeTestMethod()[pri:0, instance:Amazon.Amazon_Verify_Max_Box_Test@1ba9117e]" started-at="2021-12-01T11:55:21 CST" name="beforeTestMethod" finished-at="2021-12-01T11:55:21 CST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTestMethod -->
+        <test-method signature="test_Amazon_Verify_Max_Box_Is_Visible()[pri:0, instance:Amazon.Amazon_Verify_Max_Box_Test@1ba9117e]" started-at="2021-12-01T11:55:21 CST" name="test_Amazon_Verify_Max_Box_Is_Visible" finished-at="2021-12-01T11:55:27 CST" duration-ms="6217" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_Amazon_Verify_Max_Box_Is_Visible -->
+        <test-method is-config="true" signature="afterTestMethod()[pri:0, instance:Amazon.Amazon_Verify_Max_Box_Test@1ba9117e]" started-at="2021-12-01T11:55:27 CST" name="afterTestMethod" finished-at="2021-12-01T11:55:27 CST" duration-ms="5" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTestMethod -->
+        <test-method is-config="true" signature="close()[pri:0, instance:Amazon.Amazon_Verify_Max_Box_Test@1ba9117e]" started-at="2021-12-01T11:55:27 CST" name="close" finished-at="2021-12-01T11:55:28 CST" duration-ms="638" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- close -->
+      </class> <!-- Amazon.Amazon_Verify_Max_Box_Test -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  
+  <test thread-count="5" name="Test Search Amazon">
+   <classes>
+      <class name="Amazon.Amazon_Verify_Go_Button_Test"/>
+      <class name="Amazon.Amazon_Verify_Max_Box_Test"/>
+      <class name="Amazon.Amazon_Verify_Min_Box_Test"/>
+    </classes>
+  </test>
+  
+  <test thread-count="5" name="Test Search Craigslist">
+   <classes>
+      <class name="Craigslist.TestCraigslistAptAndHousingMinVerify"/>
+      <class name="Craigslist.TestCraigslistMaxVerify"/>
+    </classes>
+  </test>
+  
+  <test thread-count="5" name="Test Search Google">
+   <classes>
+      <class name="Google.Test_Google"/>
+    </classes>
+  </test>
+     <!-- Test -->
+</suite> <!-- Suite -->
+  
+  <!--  
+  <test thread-count="5" name="Test">
+   <classes>
+      <class name="Amazon.Amazon_Verify_Go_Button_Test"/>
+      <class name="Amazon.Amazon_Verify_Max_Box_Test"/>
+      <class name="Amazon.Amazon_Verify_Min_Box_Test"/>
+      <class name="Craigslist.TestCraigslistAptAndHousingMinVerify"/>
+      <class name="Craigslist.TestCraigslistMaxVerify"/>
+      <class name="Google.Test_Google"/>
+    </classes>
+  </test>-->
+   <!-- Test -->
+    <!-- 
+</suite> <! Suite -->
+
+
+<!--  
+  <test thread-count="5" name="Test">
+    <packages>
+      <package name="Amazon"/>
+      <package name="Craigslist"/>
+      <package name="Google"/>
+    </packages>
+  </test>--> <!-- Test -->
+  <!--
+</suite> < Suite -->
+
+<!--  
+<test thread-count="5" name="Test">
+    <classes>
+      <class name="Amazon.Amazon_Verify_Go_Button_Test"/>
+      <class name="Amazon.Amazon_Verify_Max_Box_Test"/>
+      <class name="Amazon.Amazon_Verify_Min_Box_Test"/>
+      <class name="Craigslist.TestCraigslistAptAndHousingMinVerify"/>
+      <class name="Craigslist.TestCraigslistMaxVerify"/>
+      <class name="Google.Test_Google"/>
+    </classes>
+  </test>--> <!-- Test -->
+  <!--  
+</suite> < Suite -->
+
+
+<!-- 
+  <test thread-count="5" name="Test Amazon">
+    <classes>
+      <class name="Others.TestCraigslistAccountingAndFinanaceLinkJanu"/>
+      <class name="Google.Test_Google"/>
+      <class name="BEST_BUY.BEST_BUY_Min_Verify"/>
+      <class name="Amazon.Amazon_Verify_Min_Box_Test"/>
+      <class name="Craigslist.TestCraigslistAptAndHousingMinVerify"/>
+      <class name="Craigslist.TestCraigslistMaxVerify"/>
+      <class name="BEST_BUY.BEST_BUY_Max_Value"/>
+      <class name="Amazon.Amazon_Verify_Max_Box_Test"/>
+      <class name="Amazon.Amazon_Verify_Go_Button_Test"/>
+    </classes>
+  </test>--> <!-- Test -->
+  <!--  
+</suite> < Suite -->

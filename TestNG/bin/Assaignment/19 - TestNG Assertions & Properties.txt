@@ -1,0 +1,220 @@
+SOFT ASSERTION VS HARD ASSERTION:
+
+* Soft Assertions do not throw an exception if a @Test Method fails and continues to next step in the @Test Method
+	- Requires an object to be created
+
+* Hard  Assertions throw an exception if a @Test Method fails, skips the rest of the Method, and continues to next @Test Method in the Suite
+	- Does not require an object to be created
+
+* Example:
+
+	public void softAssert() {
+		SoftAssert softAssertion = new SoftAssert();
+		System.out.println("softAssert Method was Started");
+		softAssertion.assertTrue(false);			// Test will fail
+		System.out.println("softAssert Method was Executed");	// Line will print because Soft Assertion was used
+	}
+
+	public void hardAssert() {
+		System.out.println("hardAssert Method was Started");
+		Assert.assertTrue(false);				// Test will fail
+		System.out.println("hardAssert Method was Executed");	// Line will NOT print because Hard Assertion was used
+	}
+
+--------------------------------------------------------------------------------------------------------------
+
+PROPERTIES:
+
+* Definition: 
+	- Properties are a list of values assigned to variables called keys
+	- Format: key=value
+	- Properties are written and stored in a document called a file
+	- Every line has one pair of a key (also known as a variable) and its value
+	- The first word of every line is taken as a key
+	- A file containing properties is always saved as a ".properties" file
+		> Example: filename.properties
+	- A comment in a file is started with the "#" character
+
+* Creating a file:
+	1. Click "File"
+	2. Click "New"
+	3. Click "File"
+		> If "File" is not an option, click "Other" > "General" > "File"
+ 
+* Extracting properties from a Properties File:
+	1. An object is created using the FileInputStream() Constructor to locate and store the file containing the properties
+		- Note: A file's contents by default are String values
+	2. An object is created using the Properties() Constructor
+	3. The load() Method is used to load the file and convert the contents to properties
+	4. The getProperty() Method can now be used to extract any property value by inputting a key as a String for the Method Argument
+
+* Advantage of using properties:
+	- Properties allow for code optimization
+	- If a certain value is used by a number of classes, it can be assigned to a key and that key can be used by the classes
+	- If a change occurs in the value, it will only need to be changed once in the file containing the property instead of every individual class
+
+--------------------------------------------------------------------------------------------------------------
+
+PROPERTIES EXAMPLE:
+
+A. Properties File:-
+
+	name=Joe
+	age=41
+	phone=8888
+
+---
+
+B. Main Class:-
+
+	package projC19_PropertiesBasics;
+	
+	import java.io.FileInputStream;
+	import java.io.IOException;
+	import java.util.Properties;
+	
+	public class PropertiesExample {
+	
+		public static void main(String[] args) throws IOException {
+			
+			// Locate and Store File:
+			FileInputStream fis = new FileInputStream("C:\\Users\\Shadman\\Desktop\\MicroTech\\Java\\workspace\\projC19_Properties\\src\\projC19_Properties\\MyFile.properties");
+			// - By default, file will load as String values (Text)
+			
+			// Load File as Properties File:
+			Properties myProperties = new Properties();
+			myProperties.load(fis);
+			// - This will convert String values to Properties
+			
+			System.out.println(myProperties.getProperty("name"));
+			System.out.println(myProperties.getProperty("age"));
+			System.out.println(myProperties.getProperty("phone"));
+			// - getProperty() method will retrieve value for specified property
+			
+			System.out.println(myProperties.size());
+			// - size() method will state the number of properties in the file
+			
+		} // Main End
+	
+	} // Class End
+
+--------------------------------------------------------------------------------------------------------------
+
+PROPERTIES EXAMPLE W/ TestNG:
+
+A. Properties File:-
+
+	URL=https://craigslist.org
+	GardenLink=//a[@class='gra']/span[text()='farm+garden']
+	SearchBox=//input[@id='query']
+	SearchButton=//div[@class='querybox']/button[@type='submit']
+	TotalCount=//div[3]/div/span/span/span[@class='totalcount']
+	# Locators also known as OR (Object Repository)
+
+---
+
+B. Base Class:-
+
+	package projC19_BasePkg;
+	
+	import java.io.FileInputStream;
+	import java.io.IOException;
+	import java.util.Properties;
+	
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.chrome.ChromeDriver;
+	import org.testng.annotations.AfterSuite;
+	import org.testng.annotations.BeforeSuite;
+	
+	public class Base {
+	
+		public static WebDriver driver;
+		public static FileInputStream fis;
+		public static Properties myProperties;
+		
+		@BeforeSuite
+		public void setup() throws IOException {
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\Shadman\\Desktop\\MicroTech\\Java\\drivers\\chromedriver.exe");
+			driver = new ChromeDriver();
+			fis = new FileInputStream("C:\\Users\\Shadman\\Desktop\\MicroTech\\Java\\workspace\\projC19_Properties\\src\\projC19_PropertiesFolder\\Locators.properties");
+			myProperties = new Properties();
+			myProperties.load(fis);
+		} // Setup Method
+		
+		@AfterSuite
+		public void close() {
+			driver.close();
+		} // Close Method
+		
+		public static void url(String url) {
+			driver.get(url);
+		} // Open Site Method
+		
+		public void click(By b) {
+			driver.findElement(b).click();
+		} // Click Method
+		
+		public void sendKeys(By b, String keyValue) {
+			driver.findElement(b).sendKeys(keyValue);
+		} // SendKeys Method
+		
+		public String getText(By b) {
+			return driver.findElement(b).getText();
+		} // GetText Method
+
+	} // Class End
+
+---
+
+C. Test Class 1:-
+
+	package projC19_TestCases;
+	
+	import org.openqa.selenium.By;
+	import org.testng.Assert;
+	import org.testng.annotations.Test;
+	
+	import projC19_BasePkg.Base;
+	
+	public class VerifySeeds extends Base {
+		
+		@Test
+		public void verifySeedsSearch() {
+			url(myProperties.getProperty("URL"));
+			click(By.xpath(myProperties.getProperty("GardenLink")));
+			sendKeys(By.xpath(myProperties.getProperty("SearchBox")), "seeds");
+			click(By.xpath(myProperties.getProperty("SearchButton")));
+			String results = getText(By.xpath(myProperties.getProperty("TotalCount")));
+			System.out.println(results);
+			Assert.assertTrue(Integer.parseInt(results) < 100);
+		}
+	
+	} // Class End
+
+---
+
+D. Test Class 2:-
+
+	package projC19_TestCases;
+	
+	import org.openqa.selenium.By;
+	import org.testng.Assert;
+	import org.testng.annotations.Test;
+	
+	import projC19_BasePkg.Base;
+	
+	public class VerifyCow extends Base {
+		
+		@Test
+		public void verifyCowSearch() {		
+			url(myProperties.getProperty("URL"));
+			click(By.xpath(myProperties.getProperty("GardenLink")));
+			sendKeys(By.xpath(myProperties.getProperty("SearchBox")), "cow");
+			click(By.xpath(myProperties.getProperty("SearchButton")));
+			String results = getText(By.xpath(myProperties.getProperty("TotalCount")));
+			System.out.println(results);
+			Assert.assertTrue(Integer.parseInt(results) < 300);
+		}
+	
+	} // Class End
